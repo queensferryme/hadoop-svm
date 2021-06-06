@@ -1,11 +1,14 @@
-.PHONY: all data run
+.PHONY: all data result run
 
-all: run
+all: data run result
 
 data:
-	python dataset.py 3
+	python data.py 2
 	hadoop fs -rm -r -f /input
 	hadoop fs -put data/input /input
+
+result:
+	python result.py
 
 run:
 	hadoop fs -rm -r -f /output
@@ -14,4 +17,4 @@ run:
 	    -input   /input            \
 	    -output  /output           \
 	    -mapper  "python map.py"   \
-		-reducer "python reduce.py"
+	    -reducer "python reduce.py"
