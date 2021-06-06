@@ -4,9 +4,8 @@ import numpy as np
 
 
 # initialize dataset
-dataset = np.genfromtxt(sys.stdin, delimiter=',')
+dataset = np.genfromtxt(sys.stdin)
 dataset = np.insert(dataset, -1, np.ones(dataset.shape[0]), axis=1)
-dataset[:, -1] = np.vectorize(lambda x: 1 if x == 1 else -1)(dataset[:, -1])
 # initialize parameters
 epochs = 1000
 lr = 0.01
