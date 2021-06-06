@@ -1,11 +1,13 @@
 import sys
 
-W1, W2, count = 0, 0, 0
+import numpy as np
 
-for line in sys.stdin:
-    w1, w2 = line.split("\t")
-    W1 += float(w1)
-    W2 += float(w2)
-    count += 1
 
-print("{}\t{}".format(W1 / count, W2 / count))
+# read & average weights
+ws = np.genfromtxt(sys.stdin)
+ws = np.average(ws, 0)
+
+
+# output
+np.savetxt(sys.stdout.buffer, ws, fmt='%.6f', newline=' ')
+print()
