@@ -4,13 +4,18 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-data = np.genfromtxt('data/input/dataset1.csv')
+data = np.vstack([
+    np.genfromtxt(f'data/input/dataset{i}.csv')
+    for i in range(1, 6)
+])
 
 positive = data[data[:, -1] > 0]
 plt.scatter(positive[:, 0], positive[:, 1], c='red')
 
 negative = data[data[:, -1] <= 0]
 plt.scatter(negative[:, 0], negative[:, 1], c='blue')
+
+plt.savefig('result/data.png')
 
 xmin, xmax = np.min(data[:, 0]), np.max(data[:, 0])
 ymin, ymax = np.min(data[:, 1]), np.max(data[:, 1])
@@ -36,4 +41,4 @@ plt.axline(
 
 plt.legend()
 
-plt.savefig('result.png')
+plt.savefig('result/result.png')
