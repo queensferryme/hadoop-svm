@@ -14,4 +14,5 @@ hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-3.3.0.jar \
 ## References
 
 1. Alham, N. K., Li, M., Liu, Y., & Hammoud, S. (2011). A MapReduce-based distributed SVM algorithm for automatic image annotation. *Computers & Mathematics with Applications, 62(7)*, 2801-2811.
+2. <http://cs229.stanford.edu/materials/smo.pdf>
 
