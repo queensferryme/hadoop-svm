@@ -15,6 +15,7 @@ max_passes = 3
 n = dataset.shape[0]
 tolerance = 1e-3
 
+
 def error(x, y):
     sum = 0
     for i in range(n):
@@ -22,15 +23,18 @@ def error(x, y):
         sum += alpha_i * y_i * kernel(x_i, x)
     return sum + b - y
 
+
 # training
-alpha, b, passes  = np.zeros(n), 0, 0
+alpha, b, passes = np.zeros(n), 0, 0
 for epoch in range(1, epochs):
     updated = 0
     for i in range(n):
         x_i, y_i = dataset[i, :-1], dataset[i, -1]
 
         error_i = error(x_i, y_i)
-        if not (y_i * error_i < -tolerance and alpha[i] < C) and not (y_i * error_i > tolerance and alpha[i] > 0):
+        if not (y_i * error_i < -tolerance and alpha[i] < C) and not (
+            y_i * error_i > tolerance and alpha[i] > 0
+        ):
             continue
 
         j = np.random.choice([x for x in range(0, n) if x != i])
@@ -56,8 +60,20 @@ for epoch in range(1, epochs):
             continue
         alpha[i] = alpha_i + y_i * y_j * (alpha_j - alpha[j])
 
-        b1 = b - error_i - y_i * (alpha[i] - alpha_i) * kernel(x_i, x_i) - y_j * (alpha[j] - alpha_j) - kernel(x_i, x_j)
-        b2 = b - error_i - y_i * (alpha[i] - alpha_i) * kernel(x_i, x_j) - y_j * (alpha[j] - alpha_j) - kernel(x_j, x_j)
+        b1 = (
+            b
+            - error_i
+            - y_i * (alpha[i] - alpha_i) * kernel(x_i, x_i)
+            - y_j * (alpha[j] - alpha_j)
+            - kernel(x_i, x_j)
+        )
+        b2 = (
+            b
+            - error_i
+            - y_i * (alpha[i] - alpha_i) * kernel(x_i, x_j)
+            - y_j * (alpha[j] - alpha_j)
+            - kernel(x_j, x_j)
+        )
         if 0 < alpha[i] < C:
             b = b1
         elif 0 < alpha[j] < C:
@@ -74,7 +90,7 @@ for epoch in range(1, epochs):
 
 # output
 al = StringIO()
-np.savetxt(al, alpha[(0 < alpha) & (alpha < C)], fmt='%.6f')
+np.savetxt(al, alpha[(0 < alpha) & (alpha < C)], fmt="%.6f")
 sv = StringIO()
-np.savetxt(sv, dataset[(0 < alpha) & (alpha < C)], fmt='%.6f')
-print(json.dumps({ 'al': al.getvalue(), 'sv': sv.getvalue(), 'b': b }))
+np.savetxt(sv, dataset[(0 < alpha) & (alpha < C)], fmt="%.6f")
+print(json.dumps({"al": al.getvalue(), "sv": sv.getvalue(), "b": b}))

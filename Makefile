@@ -7,6 +7,9 @@ data:
 	hadoop fs -rm -r -f /input
 	hadoop fs -put data/input /input
 
+fmt:
+	black .
+
 result:
 	python result.py
 

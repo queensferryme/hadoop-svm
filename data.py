@@ -9,6 +9,7 @@ dim = int(sys.argv[1])
 weight = np.random.randn(dim + 1)
 threshold = 3 ** dim
 
+
 def generate_dataset(path):
     dataset = []
     while len(dataset) < 200:
@@ -17,10 +18,11 @@ def generate_dataset(path):
         if abs(dotprod) < threshold:
             continue
         dataset.append(np.hstack([x, 1 if dotprod > 0 else -1]))
-    np.savetxt(path, np.array(dataset), fmt='%.6f')
+    np.savetxt(path, np.array(dataset), fmt="%.6f")
 
-if not os.path.exists('data/input'):
-    os.makedirs('data/input')
+
+if not os.path.exists("data/input"):
+    os.makedirs("data/input")
 for i in range(1, 6):
-    generate_dataset(os.path.join('data/input', f'dataset{i}.csv'))
-np.savetxt('data/weight.csv', weight, fmt='%.6f')
+    generate_dataset(os.path.join("data/input", f"dataset{i}.csv"))
+np.savetxt("data/weight.csv", weight, fmt="%.6f")
